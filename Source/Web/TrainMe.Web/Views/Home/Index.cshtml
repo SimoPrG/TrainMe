@@ -1,0 +1,13 @@
+﻿@using TrainMe.Web.ViewModels.Home;
+@model IEnumerable<SomeModelViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Top N models</h2>
+
+@foreach (var m in Model)
+{
+    <h3>@m.SomeProperty</h3>
+    <h2>@m.Owner</h2>
+}
