@@ -16,7 +16,11 @@
         {
         }
 
-        public virtual IDbSet<SomeModel> SomeModels { get; set; }
+        public virtual IDbSet<Category> Categories { get; set; }
+
+        public virtual IDbSet<SubCategory> SubCategories { get; set; }
+
+        public virtual IDbSet<Course> Courses { get; set; }
 
         public static TrainMeDbContext Create()
         {
@@ -58,6 +62,20 @@
                     entity.ModifiedOn = DateTime.UtcNow;
                 }
             }
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Course>()
+                .HasRequired(c => c.Author)
+                .WithMany(u => u.CreatedCourses)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Course>()
+                .HasMany(c => c.Attendees)
+                .WithMany(u => u.AttendedCourses);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -54,7 +54,7 @@
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
 
-            var servicesAssembly = Assembly.GetAssembly(typeof(ISomeModelService));
+            var servicesAssembly = Assembly.GetAssembly(typeof(ICourseService));
             builder.RegisterAssemblyTypes(servicesAssembly).AsImplementedInterfaces();
 
             builder.Register(x => new HttpCacheService())

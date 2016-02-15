@@ -8,16 +8,16 @@
 
     public class HomeController : BaseController
     {
-        private readonly ISomeModelService someModelService;
+        private readonly ICourseService courseService;
 
-        public HomeController(ISomeModelService someModelService)
+        public HomeController(ICourseService courseService)
         {
-            this.someModelService = someModelService;
+            this.courseService = courseService;
         }
 
         public ActionResult Index()
         {
-            var someViewModels = this.Mapper.Map<List<SomeModelViewModel>>(this.someModelService.GetTop(4));
+            var someViewModels = this.Mapper.Map<List<CourseViewModel>>(this.courseService.GetTop(4));
             return this.View(someViewModels);
         }
     }

@@ -16,11 +16,13 @@
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class User : IdentityUser, IBaseModel
     {
-        private ICollection<SomeModel> someModels;
+        private ICollection<Course> createdCourses;
+        private ICollection<Course> attendedCourses;
 
         public User()
         {
-            this.someModels = new HashSet<SomeModel>();
+            this.createdCourses = new HashSet<Course>();
+            this.attendedCourses = new HashSet<Course>();
 
             if (this.CreatedOn == default(DateTime))
             {
@@ -29,17 +31,23 @@
         }
 
         [Required]
-        [MaxLength(ModelValidationConstants.NameMaxLength)]
+        [MaxLength(ModelValidationConstants.UserNameMaxLength)]
         public string FirstName { get; set; }
 
         [Required]
-        [MaxLength(ModelValidationConstants.NameMaxLength)]
+        [MaxLength(ModelValidationConstants.UserNameMaxLength)]
         public string LastName { get; set; }
 
-        public virtual ICollection<SomeModel> SomeModels
+        public virtual ICollection<Course> CreatedCourses
         {
-            get { return this.someModels; }
-            set { this.someModels = value; }
+            get { return this.createdCourses; }
+            set { this.createdCourses = value; }
+        }
+
+        public virtual ICollection<Course> AttendedCourses
+        {
+            get { return this.attendedCourses; }
+            set { this.attendedCourses = value; }
         }
 
         public DateTime CreatedOn { get; set; }

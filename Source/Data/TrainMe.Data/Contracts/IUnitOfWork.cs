@@ -7,7 +7,11 @@
     {
         IRepository<User> Users { get; }
 
-        IRepository<SomeModel> SomeModels { get; }
+        IRepository<Category> Categories { get; }
+
+        IRepository<SubCategory> SubCategories { get; }
+
+        IRepository<Course> Courses { get; }
 
         int Commit();
     }

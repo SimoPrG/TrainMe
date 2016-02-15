@@ -8,26 +8,26 @@
     using TrainMe.Data.Models;
     using TrainMe.Services.Data.Contracts;
 
-    public class SomeModelService : ISomeModelService
+    public class CourseService : ICourseService
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public SomeModelService(IUnitOfWork unitOfWork)
+        public CourseService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<SomeModel> GetAll()
+        public IEnumerable<Course> GetAll()
         {
-            return this.unitOfWork.SomeModels.Get();
+            return this.unitOfWork.Courses.Get();
         }
 
-        public IEnumerable<SomeModel> GetTop(int count)
+        public IEnumerable<Course> GetTop(int count)
         {
             // Just testing eager loading...
-            Expression<Func<SomeModel, object>> includeUsers = sm => sm.User;
+            Expression<Func<Course, object>> includeUsers = c => c.Author;
 
-            return this.unitOfWork.SomeModels.Get(
+            return this.unitOfWork.Courses.Get(
                 orderBy: q => q.OrderByDescending(sm => sm.CreatedOn),
                 page: 1,
                 pageSize: count,

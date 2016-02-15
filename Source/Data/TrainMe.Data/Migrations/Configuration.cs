@@ -20,7 +20,7 @@
         {
             this.SeedRoles(context);
             this.SeedUsers(context);
-            this.SeedSomeModels(context);
+            this.SeedCourses(context);
         }
 
         private void SeedRoles(TrainMeDbContext context)
@@ -76,25 +76,16 @@
             }
         }
 
-        private void SeedSomeModels(TrainMeDbContext context)
+        private void SeedCourses(TrainMeDbContext context)
         {
-            var someModels = context.SomeModels.ToArray();
-            if (someModels.Any())
+            var courses = context.Courses.ToArray();
+            if (courses.Any())
             {
                 return;
             }
 
-            var user = context.Users.FirstOrDefault(u => u.UserName == "User");
-            someModels = new[]
-            {
-                new SomeModel { SomeProperty = "First Model", User = user },
-                new SomeModel { SomeProperty = "Second Model", User = user },
-                new SomeModel { SomeProperty = "Third Model", User = user },
-                new SomeModel { SomeProperty = "Fourth Model", User = user },
-                new SomeModel { SomeProperty = "Fifth Model", User = user },
-            };
-
-            context.SomeModels.AddOrUpdate(someModels);
+            // TODO: seed
+            context.Courses.AddOrUpdate(courses);
         }
     }
 }

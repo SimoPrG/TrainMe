@@ -10,16 +10,27 @@
 
         private bool isDisposed = false;
 
-        public UnitOfWork(ITrainMeDbContext context, IRepository<User> users, IRepository<SomeModel> someModels)
+        public UnitOfWork(
+            ITrainMeDbContext context,
+            IRepository<User> users,
+            IRepository<Category> categories,
+            IRepository<SubCategory> subCategories,
+            IRepository<Course> courses)
         {
             this.context = context;
             this.Users = users;
-            this.SomeModels = someModels;
+            this.Categories = categories;
+            this.SubCategories = subCategories;
+            this.Courses = courses;
         }
 
         public IRepository<User> Users { get; }
 
-        public IRepository<SomeModel> SomeModels { get; }
+        public IRepository<Category> Categories { get; }
+
+        public IRepository<SubCategory> SubCategories { get; }
+
+        public IRepository<Course> Courses { get; }
 
         public int Commit()
         {

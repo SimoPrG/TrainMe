@@ -3,10 +3,10 @@
     using System.Collections.Generic;
     using TrainMe.Data.Models;
 
-    public interface ISomeModelService
+    public interface ICourseService
     {
-        IEnumerable<SomeModel> GetAll();
+        IEnumerable<Course> GetAll();
 
-        IEnumerable<SomeModel> GetTop(int count);
+        IEnumerable<Course> GetTop(int count);
     }
 }

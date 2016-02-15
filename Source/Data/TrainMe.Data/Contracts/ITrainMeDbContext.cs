@@ -9,7 +9,11 @@
     {
         IDbSet<User> Users { get; set; }
 
-        IDbSet<SomeModel> SomeModels { get; set; }
+        IDbSet<Category> Categories { get; set; }
+
+        IDbSet<SubCategory> SubCategories { get; set; }
+
+        IDbSet<Course> Courses { get; set; }
 
         IDbSet<TEntity> Set<TEntity>()
             where TEntity : class;

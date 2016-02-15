@@ -1,5 +1,5 @@
 ﻿@using TrainMe.Web.ViewModels.Home;
-@model IEnumerable<SomeModelViewModel>
+@model IEnumerable<CourseViewModel>
 @{
     ViewBag.Title = "Home Page";
 }
@@ -9,5 +9,5 @@
 @foreach (var m in Model)
 {
     <h3>@m.SomeProperty</h3>
-    <h2>@m.Owner</h2>
+    <h2>@m.Author</h2>
 }

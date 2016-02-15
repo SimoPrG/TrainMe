@@ -63,11 +63,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Category.cs" />
     <Compile Include="Contracts\BaseModel.cs" />
     <Compile Include="Contracts\IAuditInfo.cs" />
     <Compile Include="Contracts\IBaseModel.cs" />
     <Compile Include="Contracts\IDeletableEntity.cs" />
-    <Compile Include="SomeModel.cs" />
+    <Compile Include="Course.cs" />
+    <Compile Include="SubCategory.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
