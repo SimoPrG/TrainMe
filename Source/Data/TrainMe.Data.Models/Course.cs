@@ -8,10 +8,12 @@
     public class Course : BaseModel
     {
         private ICollection<User> attendees;
+        private ICollection<Lesson> lessons;
 
         public Course()
         {
             this.attendees = new HashSet<User>();
+            this.lessons = new HashSet<Lesson>();
         }
 
         public int Id { get; set; }
@@ -36,6 +38,12 @@
         {
             get { return this.attendees; }
             set { this.attendees = value; }
+        }
+
+        public virtual ICollection<Lesson> Lessons
+        {
+            get { return this.lessons; }
+            set { this.lessons = value; }
         }
     }
 }

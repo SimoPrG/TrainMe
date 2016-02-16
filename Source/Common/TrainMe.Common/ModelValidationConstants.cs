@@ -11,5 +11,8 @@
 
         // Category
         public const int CategoryNameMaxLength = 50;
+
+        // Lesson
+        public const int LessonTitleMaxLength = 200;
     }
 }
