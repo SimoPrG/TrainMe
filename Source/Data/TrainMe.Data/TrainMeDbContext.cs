@@ -20,6 +20,8 @@
 
         public virtual IDbSet<SubCategory> SubCategories { get; set; }
 
+        public virtual IDbSet<FileDetail> FileDetails { get; set; }
+
         public virtual IDbSet<Course> Courses { get; set; }
 
         public static TrainMeDbContext Create()
@@ -74,6 +76,18 @@
             modelBuilder.Entity<Course>()
                 .HasMany(c => c.Attendees)
                 .WithMany(u => u.AttendedCourses);
+
+            modelBuilder.Entity<Category>()
+                .HasRequired(c => c.Image)
+                .WithMany()
+                .HasForeignKey(c => c.ImageId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<SubCategory>()
+                .HasRequired(sc => sc.Image)
+                .WithMany()
+                .HasForeignKey(sc => sc.ImageId)
+                .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
         }

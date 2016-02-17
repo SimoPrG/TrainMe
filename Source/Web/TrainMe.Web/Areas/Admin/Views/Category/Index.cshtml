@@ -1,0 +1,45 @@
+﻿@using TrainMe.Web.Areas.Admin.Controllers
+@using TrainMe.Web.Areas.Admin.Models.Category
+@{
+    string controllerName = nameof(CategoryController);
+    controllerName = controllerName.Remove(controllerName.LastIndexOf("Controller"));
+
+    const string ReadAction = nameof(CategoryController.Read);
+    const string CreateAction = nameof(CategoryController.Create);
+    const string UpdateAction = nameof(CategoryController.Update);
+    const string DestroyAction = nameof(CategoryController.Destroy);
+}
+@(Html.Kendo().Grid<CategoryViewModel>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.Name).ClientTemplate(
+              "<h4 class='text-center'>#: Name # " +
+                "<img src='" + Url.Content("~/Content/images/categories/") + "#= ImageFileName #' alt='#: Name #' height='100'/>" +
+              "</h4>");
+          columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+      })
+      .ToolBar(toolbar =>
+      {
+          toolbar.Create();
+      })
+      .ColumnMenu()
+      .Editable(editable => editable.Mode(GridEditMode.PopUp))
+      .Pageable()
+      .Sortable(sortable =>
+      {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Filterable()
+      .Scrollable(scrollable => scrollable.Enabled(false))
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(4)
+          .Model(model => model.Id(p => p.Id))
+          .Read(read => read.Action(@ReadAction, @controllerName))
+          .Create(create => create.Action(@CreateAction, @controllerName))
+          .Update(update => update.Action(@UpdateAction, @controllerName))
+          .Destroy(destroy => destroy.Action(@DestroyAction, @controllerName))
+      )
+      .Deferred()
+)

@@ -1,27 +1,14 @@
 ﻿namespace TrainMe.Data.Contracts
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
     using TrainMe.Data.Models.Contracts;
 
     public interface IRepository<TEntity>
         where TEntity : IBaseModel
     {
-        IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            IEnumerable<Expression<Func<TEntity, object>>> includeProperties = null,
-            int? page = null,
-            int? pageSize = null);
+        IQueryable<TEntity> All();
 
-        IEnumerable<TEntity> GetWithDeleted(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            IEnumerable<Expression<Func<TEntity, object>>> includeProperties = null,
-            int? page = null,
-            int? pageSize = null);
+        IQueryable<TEntity> AllWithDeleted();
 
         TEntity GetById(object id);
 

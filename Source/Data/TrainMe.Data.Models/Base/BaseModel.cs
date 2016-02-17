@@ -1,7 +1,8 @@
-﻿namespace TrainMe.Data.Models.Contracts
+﻿namespace TrainMe.Data.Models.Base
 {
     using System;
     using System.ComponentModel.DataAnnotations.Schema;
+    using TrainMe.Data.Models.Contracts;
 
     public abstract class BaseModel : IBaseModel
     {

@@ -7,17 +7,17 @@
     public class RegisterViewModel
     {
         [Required]
-        [MaxLength(ModelValidationConstants.UserNameMaxLength)]
+        [MaxLength(ValidationConstants.UserNameMaxLength)]
         [Display(Name = "First name")]
         public string FirstName { get; set; }
 
         [Required]
-        [MaxLength(ModelValidationConstants.UserNameMaxLength)]
+        [MaxLength(ValidationConstants.UserNameMaxLength)]
         [Display(Name = "Last name")]
         public string LastName { get; set; }
 
         [Required]
-        [MaxLength(ModelValidationConstants.UserNameMaxLength)]
+        [MaxLength(ValidationConstants.UserNameMaxLength)]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 

@@ -4,6 +4,7 @@
     using System.Web.Mvc;
 
     using TrainMe.Services.Data.Contracts;
+    using TrainMe.Web.Infrastructure.Mapping;
     using TrainMe.Web.ViewModels.Home;
 
     public class HomeController : BaseController
@@ -17,7 +18,7 @@
 
         public ActionResult Index()
         {
-            var someViewModels = this.Mapper.Map<List<CourseViewModel>>(this.courseService.GetTop(4));
+            var someViewModels = this.courseService.GetAll().To<CourseViewModel>();
             return this.View(someViewModels);
         }
     }

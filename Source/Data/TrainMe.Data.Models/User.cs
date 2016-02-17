@@ -31,11 +31,11 @@
         }
 
         [Required]
-        [MaxLength(ModelValidationConstants.UserNameMaxLength)]
+        [MaxLength(ValidationConstants.UserNameMaxLength)]
         public string FirstName { get; set; }
 
         [Required]
-        [MaxLength(ModelValidationConstants.UserNameMaxLength)]
+        [MaxLength(ValidationConstants.UserNameMaxLength)]
         public string LastName { get; set; }
 
         public virtual ICollection<Course> CreatedCourses

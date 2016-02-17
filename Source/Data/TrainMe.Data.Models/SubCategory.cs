@@ -1,9 +1,10 @@
 ﻿namespace TrainMe.Data.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using TrainMe.Common;
-    using TrainMe.Data.Models.Contracts;
+    using TrainMe.Data.Models.Base;
 
     public class SubCategory : BaseModel
     {
@@ -17,12 +18,16 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(ModelValidationConstants.CategoryNameMaxLength)]
+        [MaxLength(ValidationConstants.CategoryNameMaxLength)]
         public string Name { get; set; }
 
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
+
+        public Guid ImageId { get; set; }
+
+        public FileDetail Image { get; set; }
 
         public virtual ICollection<Course> Courses
         {

@@ -11,6 +11,8 @@
 
         IRepository<SubCategory> SubCategories { get; }
 
+        IRepository<FileDetail> FileDetails { get; }
+
         IRepository<Course> Courses { get; }
 
         int Commit();

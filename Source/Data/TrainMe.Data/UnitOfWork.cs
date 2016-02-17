@@ -15,12 +15,14 @@
             IRepository<User> users,
             IRepository<Category> categories,
             IRepository<SubCategory> subCategories,
+            IRepository<FileDetail> fileDetails,
             IRepository<Course> courses)
         {
             this.context = context;
             this.Users = users;
             this.Categories = categories;
             this.SubCategories = subCategories;
+            this.FileDetails = fileDetails;
             this.Courses = courses;
         }
 
@@ -29,6 +31,8 @@
         public IRepository<Category> Categories { get; }
 
         public IRepository<SubCategory> SubCategories { get; }
+
+        public IRepository<FileDetail> FileDetails { get; }
 
         public IRepository<Course> Courses { get; }
 

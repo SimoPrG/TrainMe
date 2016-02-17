@@ -1,10 +1,8 @@
 ﻿namespace TrainMe.Data
 {
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
-    using System.Linq.Expressions;
     using TrainMe.Data.Contracts;
     using TrainMe.Data.Models.Contracts;
 
@@ -23,59 +21,14 @@
 
         protected virtual IDbSet<TEntity> DbSet { get; }
 
-        public virtual IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            IEnumerable<Expression<Func<TEntity, object>>> include = null,
-            int? page = null,
-            int? pageSize = null)
+        public virtual IQueryable<TEntity> All()
         {
-            Expression<Func<TEntity, bool>> expression = x => !x.IsDeleted;
-
-            if (filter != null)
-            {
-                var body = Expression.AndAlso(expression.Body, filter.Body);
-                expression = Expression.Lambda<Func<TEntity, bool>>(body, expression.Parameters);
-            }
-
-            return this.GetWithDeleted(expression, orderBy, include, page, pageSize);
+            return this.DbSet.Where(e => !e.IsDeleted);
         }
 
-        public virtual IEnumerable<TEntity> GetWithDeleted(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            IEnumerable<Expression<Func<TEntity, object>>> include = null,
-            int? page = null,
-            int? pageSize = null)
+        public virtual IQueryable<TEntity> AllWithDeleted()
         {
-            IQueryable<TEntity> query = this.DbSet;
-
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-
-            if (include != null)
-            {
-                foreach (var expression in include)
-                {
-                    query = query.Include(expression);
-                }
-            }
-
-            if (orderBy != null)
-            {
-                query = orderBy(query);
-            }
-
-            if (page != null && pageSize != null)
-            {
-                query = query
-                    .Skip((page.Value - 1) * pageSize.Value)
-                    .Take(pageSize.Value);
-            }
-
-            return query.ToList();
+            return this.DbSet;
         }
 
         public virtual TEntity GetById(object id)

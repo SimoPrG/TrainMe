@@ -1,7 +1,11 @@
 ﻿namespace TrainMe.Common
 {
-    public static class ModelValidationConstants
+    public static class ValidationConstants
     {
+        // File
+        public const int FileNameMaxLength = 260;
+        public const int ContentTypeMaxLength = 100;
+
         // User
         public const int UserNameMaxLength = 50;
 

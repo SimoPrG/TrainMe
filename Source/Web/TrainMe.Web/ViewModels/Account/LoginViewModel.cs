@@ -8,7 +8,7 @@
     {
         [Required]
         [Display(Name = "User name")]
-        [MaxLength(ModelValidationConstants.UserNameMaxLength)]
+        [MaxLength(ValidationConstants.UserNameMaxLength)]
         public string UserName { get; set; }
 
         [Required]

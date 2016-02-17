@@ -33,6 +33,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{26B944
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainMe.Common", "Common\TrainMe.Common\TrainMe.Common.csproj", "{138F8A95-7ED0-4CE8-8FC4-7B7BDA9760F2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{D47A0B38-9045-4B20-A8DC-2D8DA14C1048}"
+	ProjectSection(SolutionItems) = preProject
+		Libs\Kendo.Mvc.dll = Libs\Kendo.Mvc.dll
+		Libs\Kendo.Mvc.xml = Libs\Kendo.Mvc.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

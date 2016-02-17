@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using TrainMe.Common;
+    using TrainMe.Data.Models.Base;
     using TrainMe.Data.Models.Contracts;
 
     public class Course : BaseModel
@@ -19,11 +20,11 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(ModelValidationConstants.CourseNameMaxLength)]
+        [MaxLength(ValidationConstants.CourseNameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(ModelValidationConstants.CourseDescriptionMaxLength)]
+        [MaxLength(ValidationConstants.CourseDescriptionMaxLength)]
         public string Description { get; set; }
 
         public string AuthorId { get; set; }
