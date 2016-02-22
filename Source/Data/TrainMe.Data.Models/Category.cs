@@ -8,11 +8,11 @@
 
     public class Category : BaseModel
     {
-        private ICollection<SubCategory> subCategories;
+        private ICollection<Course> courses;
 
         public Category()
         {
-            this.subCategories = new HashSet<SubCategory>();
+            this.courses = new HashSet<Course>();
         }
 
         public int Id { get; set; }
@@ -25,10 +25,10 @@
 
         public virtual FileDetail Image { get; set; }
 
-        public virtual ICollection<SubCategory> SubCategories
+        public virtual ICollection<Course> Courses
         {
-            get { return this.subCategories; }
-            set { this.subCategories = value; }
+            get { return this.courses; }
+            set { this.courses = value; }
         }
     }
 }

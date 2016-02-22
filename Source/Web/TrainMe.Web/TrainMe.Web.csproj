@@ -208,8 +208,10 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Admin\Models\Category\CategoryInputModel.cs" />
-    <Compile Include="Areas\Admin\Models\Category\CategoryViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Category\CategoryInputModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Category\CategoryViewModel.cs" />
+    <Compile Include="Areas\Course\CourseAreaRegistration.cs" />
+    <Compile Include="Common\Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FileController.cs" />
@@ -228,7 +230,7 @@
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
-    <Compile Include="ViewModels\Home\CourseViewModel.cs" />
+    <Compile Include="ViewModels\Home\CategoryViewModel.cs" />
     <Compile Include="ViewModels\Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\Manage\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\FactorViewModel.cs" />
@@ -277,6 +279,7 @@
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Category\EditorTemplates\FileUpload.cshtml" />
+    <Content Include="Areas\Course\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -324,13 +327,14 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\jquery-2.2.0.min.map" />
+    <Content Include="Views\Home\DisplayTemplates\CategoryViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Course\Controllers\" />
+    <Folder Include="Areas\Course\Models\" />
+    <Folder Include="Areas\Course\Views\Shared\" />
     <Folder Include="Content\images\categories\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\Categories\" />
-    <Folder Include="Views\SubCategory\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

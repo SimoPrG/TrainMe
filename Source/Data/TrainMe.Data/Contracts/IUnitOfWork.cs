@@ -9,11 +9,11 @@
 
         IRepository<Category> Categories { get; }
 
-        IRepository<SubCategory> SubCategories { get; }
-
         IRepository<FileDetail> FileDetails { get; }
 
         IRepository<Course> Courses { get; }
+
+        IRepository<Lesson> Lessons { get; }
 
         int Commit();
     }

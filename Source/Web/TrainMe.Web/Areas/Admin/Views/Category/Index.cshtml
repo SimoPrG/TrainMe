@@ -1,5 +1,6 @@
 ﻿@using TrainMe.Web.Areas.Admin.Controllers
-@using TrainMe.Web.Areas.Admin.Models.Category
+@using TrainMe.Web.Areas.Admin.ViewModels.Category
+@using TrainMe.Web.Common
 @{
     string controllerName = nameof(CategoryController);
     controllerName = controllerName.Remove(controllerName.LastIndexOf("Controller"));
@@ -15,7 +16,7 @@
       {
           columns.Bound(c => c.Name).ClientTemplate(
               "<h4 class='text-center'>#: Name # " +
-                "<img src='" + Url.Content("~/Content/images/categories/") + "#= ImageFileName #' alt='#: Name #' height='100'/>" +
+                "<img src='" + Url.Content(Constants.CategoryImagesPath) + "#= ImageFileName #' alt='#: Name #' height='100'/>" +
               "</h4>");
           columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
       })

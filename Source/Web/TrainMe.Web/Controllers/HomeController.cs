@@ -1,6 +1,5 @@
 ﻿namespace TrainMe.Web.Controllers
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
 
     using TrainMe.Services.Data.Contracts;
@@ -9,17 +8,18 @@
 
     public class HomeController : BaseController
     {
-        private readonly ICourseService courseService;
+        private readonly ICategoryService categoryService;
 
-        public HomeController(ICourseService courseService)
+        public HomeController(ICategoryService categoryService)
         {
-            this.courseService = courseService;
+            this.categoryService = categoryService;
         }
 
         public ActionResult Index()
         {
-            var someViewModels = this.courseService.GetAll().To<CourseViewModel>();
-            return this.View(someViewModels);
+            const int NumberOfCategoriesToDisplay = 8;
+            var mostPopularCategories = this.categoryService.GetMostPopular(NumberOfCategoriesToDisplay).To<CategoryViewModel>();
+            return this.View(mostPopularCategories);
         }
     }
 }

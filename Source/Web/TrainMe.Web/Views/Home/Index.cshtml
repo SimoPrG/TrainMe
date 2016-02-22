@@ -1,13 +1,12 @@
-﻿@using TrainMe.Web.ViewModels.Home;
-@model IEnumerable<CourseViewModel>
+﻿@using TrainMe.Web.ViewModels.Home
+@model IEnumerable<CategoryViewModel>
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Wellcome!";
 }
 
-<h2>Top N models</h2>
+<h2>@ViewBag.Title</h2>
 
-@foreach (var m in Model)
-{
-    <h3>@m.SomeProperty</h3>
-    <h2>@m.Author</h2>
-}
+<h3>Most Popular Categories</h3>
+<div class="row">
+    @Html.DisplayForModel(Model)
+</div>

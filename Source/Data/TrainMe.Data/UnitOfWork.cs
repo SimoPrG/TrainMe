@@ -14,27 +14,27 @@
             ITrainMeDbContext context,
             IRepository<User> users,
             IRepository<Category> categories,
-            IRepository<SubCategory> subCategories,
             IRepository<FileDetail> fileDetails,
-            IRepository<Course> courses)
+            IRepository<Course> courses,
+            IRepository<Lesson> lessons)
         {
             this.context = context;
             this.Users = users;
             this.Categories = categories;
-            this.SubCategories = subCategories;
             this.FileDetails = fileDetails;
             this.Courses = courses;
+            this.Lessons = lessons;
         }
 
         public IRepository<User> Users { get; }
 
         public IRepository<Category> Categories { get; }
 
-        public IRepository<SubCategory> SubCategories { get; }
-
         public IRepository<FileDetail> FileDetails { get; }
 
         public IRepository<Course> Courses { get; }
+
+        public IRepository<Lesson> Lessons { get; }
 
         public int Commit()
         {

@@ -31,9 +31,9 @@
 
         public virtual User Author { get; set; }
 
-        public int SubCategoryId { get; set; }
+        public int CategoryId { get; set; }
 
-        public virtual SubCategory SubCategory { get; set; }
+        public virtual Category Category { get; set; }
 
         public virtual ICollection<User> Attendees
         {

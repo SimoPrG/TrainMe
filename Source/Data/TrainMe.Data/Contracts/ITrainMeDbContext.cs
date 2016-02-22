@@ -11,11 +11,11 @@
 
         IDbSet<Category> Categories { get; set; }
 
-        IDbSet<SubCategory> SubCategories { get; set; }
-
         IDbSet<FileDetail> FileDetails { get; set; }
 
         IDbSet<Course> Courses { get; set; }
+
+        IDbSet<Lesson> Lessons { get; set; }
 
         IDbSet<TEntity> Set<TEntity>()
             where TEntity : class;

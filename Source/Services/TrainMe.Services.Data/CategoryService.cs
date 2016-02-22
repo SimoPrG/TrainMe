@@ -35,5 +35,10 @@
             this.UnitOfWork.FileDetails.Delete(category.ImageId);
             return this.UnitOfWork.Categories.Delete(id);
         }
+
+        public IQueryable<Category> GetMostPopular(int count)
+        {
+            return this.All().OrderByDescending(c => c.Courses.Count).Take(count);
+        }
     }
 }

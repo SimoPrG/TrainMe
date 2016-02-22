@@ -1,24 +1,18 @@
 ﻿namespace TrainMe.Web.Areas.Admin.Controllers
 {
     using System;
-    using System.IO;
     using System.Web;
     using System.Web.Mvc;
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
     using TrainMe.Data.Models;
     using TrainMe.Services.Data.Contracts;
-    using TrainMe.Web.Areas.Admin.Models.Category;
+    using TrainMe.Web.Areas.Admin.ViewModels.Category;
+    using TrainMe.Web.Common;
     using TrainMe.Web.Infrastructure.Mapping;
 
     public class CategoryController : AdminController
     {
-        private static readonly string CategoriesFileDirectory = Path.Combine(
-            AppDomain.CurrentDomain.BaseDirectory,
-            "Content",
-            "images",
-            "categories");
-
         private readonly IFileService fileService;
         private readonly ICategoryService categoryService;
 
@@ -109,7 +103,7 @@
 
         public ActionResult Save(HttpPostedFileBase categoryImage)
         {
-            var image = this.fileService.Add(categoryImage, CategoriesFileDirectory);
+            var image = this.fileService.Add(categoryImage, Constants.CategoriesImageDirectory);
             return this.Json(new { ImageFileName = image.FileName });
         }
     }

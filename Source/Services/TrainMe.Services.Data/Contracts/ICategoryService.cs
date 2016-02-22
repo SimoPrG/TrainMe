@@ -14,5 +14,7 @@
         void Update();
 
         Category DeleteById(int id);
+
+        IQueryable<Category> GetMostPopular(int count);
     }
 }
