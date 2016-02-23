@@ -16,7 +16,7 @@
       {
           columns.Bound(c => c.Name).ClientTemplate(
               "<h4 class='text-center'>#: Name # " +
-                "<img src='" + Url.Content(Constants.CategoryImagesPath) + "#= ImageFileName #' alt='#: Name #' height='100'/>" +
+                "<img src='" + Url.Content(WebConstants.CategoryImagesPath) + "#= ImageFileName #' alt='#: Name #' height='100'/>" +
               "</h4>");
           columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
       })

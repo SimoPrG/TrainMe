@@ -9,9 +9,8 @@
     using TrainMe.Services.Data.Contracts;
     using TrainMe.Web.Areas.Course.InputModels.Course;
     using TrainMe.Web.Areas.Course.ViewModels.Course;
-    using WebCommon = TrainMe.Web.Common;
+    using TrainMe.Web.Common;
     using TrainMe.Web.Controllers;
-    using TrainMe.Web.Infrastructure.Common;
 
     public class CourseController : BaseController
     {
@@ -38,7 +37,7 @@
                 return this.HttpNotFound();
             }
 
-            this.HttpContext.Items[WebCommon.Constants.HttpRequestItemsCourseKey] = course;
+            this.HttpContext.Items[WebConstants.HttpRequestItemsCourseKey] = course;
 
             var courseDetailsViewModel = this.Mapper.Map<CourseDetailsViewModel>(course);
 
@@ -64,18 +63,18 @@
             var user = this.userService.GetById(this.User.Identity.GetUserId());
             if (course.Author == user)
             {
-                this.TempData[TempDataKeys.UserMessage] = "You cannot enroll for your own course.";
+                this.TempData[TempDataKeys.Warning] = "You cannot enroll for your own course.";
             }
             else if (course.Attendees.Contains(user))
             {
-                this.TempData[TempDataKeys.UserMessage] = "You are already enrolled for this course.";
+                this.TempData[TempDataKeys.Info] = "You are already enrolled for this course.";
             }
             else
             {
                 course.Attendees.Add(user);
                 this.courseService.Update();
 
-                this.TempData[TempDataKeys.UserMessage] = "You have successfully enrolled for this course.";
+                this.TempData[TempDataKeys.Success] = "You have successfully enrolled for this course.";
             }
 
             return this.RedirectToAction("Details", new { id = courseEnrollInputModel.CourseId });

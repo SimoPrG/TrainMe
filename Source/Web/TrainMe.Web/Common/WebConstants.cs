@@ -3,7 +3,7 @@
     using System;
     using System.IO;
 
-    public static class Constants
+    public static class WebConstants
     {
         public const string HttpRequestItemsCourseKey = "course";
 

@@ -1,12 +1,8 @@
-﻿@using TrainMe.Web.Infrastructure.Common
-@using HomeController = TrainMe.Web.Areas.Course.Controllers.HomeController
-@model TrainMe.Web.Areas.Course.ViewModels.Course.CourseDetailsViewModel
+﻿@model TrainMe.Web.Areas.Course.ViewModels.Course.CourseDetailsViewModel
 
 @{
     ViewBag.Title = Model.Name;
 }
-
-@(Html.Action<PartialViewsController>(c => c.RenderWarning(TempDataKeys.UserMessage)))
 
 <h2>@ViewBag.Title</h2>
 
@@ -54,9 +50,5 @@
         </dd>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @(Html.ActionLink<HomeController>("Back to List", c => c.Index(null, null, null, 1)))
-</p>
 
 @(Html.Action<PartialViewsController>(c => c.RenderEnroll()))

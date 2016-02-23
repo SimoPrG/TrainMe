@@ -218,7 +218,8 @@
     <Compile Include="Areas\Course\ViewModels\Course\CourseDetailsViewModel.cs" />
     <Compile Include="Areas\Course\ViewModels\Course\CourseViewModel.cs" />
     <Compile Include="Areas\Course\ViewModels\Course\IndexViewModel.cs" />
-    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\TempDataKeys.cs" />
+    <Compile Include="Common\WebConstants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FileController.cs" />
@@ -350,6 +351,9 @@
     <Content Include="Views\PartialViews\_RegisterOrLoginToProceedPartial.cshtml" />
     <Content Include="Views\PartialViews\_LogOffPartial.cshtml" />
     <Content Include="Views\PartialViews\_AdminDropDownMenuPartial.cshtml" />
+    <Content Include="Views\PartialViews\_SuccessPartial.cshtml" />
+    <Content Include="Views\PartialViews\_InfoPartial.cshtml" />
+    <Content Include="Views\PartialViews\_DangerPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Course\Views\Shared\" />

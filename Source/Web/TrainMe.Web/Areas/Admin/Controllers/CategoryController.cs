@@ -104,7 +104,7 @@
 
         public ActionResult Save(HttpPostedFileBase categoryImage)
         {
-            var image = this.fileService.Add(categoryImage, Constants.CategoriesImageDirectory);
+            var image = this.fileService.Add(categoryImage, WebConstants.CategoriesImageDirectory);
             return this.Json(new { ImageFileName = image.FileName });
         }
     }

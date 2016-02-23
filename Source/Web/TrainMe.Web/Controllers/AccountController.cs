@@ -9,6 +9,7 @@
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
     using TrainMe.Data.Models;
+    using TrainMe.Web.Common;
     using TrainMe.Web.Infrastructure.Common;
     using TrainMe.Web.ViewModels.Account;
 
@@ -91,6 +92,7 @@
             switch (result)
             {
                 case SignInStatus.Success:
+                    this.TempData[TempDataKeys.Success] = "You have logged in, successfully!";
                     return this.RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return this.View("Lockout");
@@ -184,6 +186,11 @@
                     if (model.Trainer)
                     {
                         this.UserManager.AddToRole(this.UserManager.FindByEmail(user.Email).Id, RoleNamesConstants.TrainerRoleName);
+                        this.TempData[TempDataKeys.Success] = "You have registered as a trainer successfully!";
+                    }
+                    else
+                    {
+                        this.TempData[TempDataKeys.Success] = "You have registered successfully!";
                     }
 
                     await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
