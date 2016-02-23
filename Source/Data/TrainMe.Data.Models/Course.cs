@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using TrainMe.Common;
     using TrainMe.Data.Models.Base;
+    using TrainMe.Web.Infrastructure.Common;
 
     public class Course : BaseModel
     {

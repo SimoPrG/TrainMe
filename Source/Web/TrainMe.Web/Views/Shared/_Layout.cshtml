@@ -1,5 +1,5 @@
-﻿@using TrainMe.Common
-@using TrainMe.Web.Controllers
+﻿@using TrainMe.Web.Controllers
+@using TrainMe.Web.Infrastructure.Common
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +33,8 @@
                             </ul>
                         </li>
                     }
+
+                    <li>@(Html.ActionLink<TrainMe.Web.Areas.Course.Controllers.HomeController>("Courses", c => c.Index(null, null, 1)))</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

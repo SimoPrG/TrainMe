@@ -2,8 +2,8 @@
 {
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using TrainMe.Common;
     using TrainMe.Data.Models;
+    using TrainMe.Web.Infrastructure.Common;
     using TrainMe.Web.Infrastructure.Mapping;
 
     public class CategoryViewModel : IMapFrom<Category>

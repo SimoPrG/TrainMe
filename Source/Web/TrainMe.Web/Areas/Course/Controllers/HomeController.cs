@@ -6,17 +6,50 @@
     using System.Web.Mvc;
     using TrainMe.Data;
     using TrainMe.Data.Models;
+    using TrainMe.Services.Data.Contracts;
+    using TrainMe.Web.Areas.Course.ViewModels;
     using TrainMe.Web.Controllers;
+    using TrainMe.Web.Infrastructure.Common;
+    using TrainMe.Web.Infrastructure.Mapping;
 
-    public class CoursesController : BaseController
+    public class HomeController : BaseController
     {
+        private readonly ICourseService courseService;
         private TrainMeDbContext db = new TrainMeDbContext();
 
-        // GET: Course/Courses
-        public ActionResult Index()
+        public HomeController(ICourseService courseService)
         {
-            var courses = db.Courses.Include(c => c.Author).Include(c => c.Category);
-            return View(courses.ToList());
+            this.courseService = courseService;
+        }
+
+        [ValidateInput(false)]
+        public ActionResult Index(string querry, string orderBy, int page = 1)
+        {
+            const int PageSize = 10;
+
+            int totalCoursesCount = this.courseService.CountCourses(querry);
+            int totalPages = (totalCoursesCount + PageSize - 1) / PageSize;
+
+            page = Validator.ValidatePage(page, totalPages);
+
+            var courseViewModels =
+                this.courseService.GetAll(querry, orderBy, page, PageSize).To<CourseViewModel>().ToList();
+
+            var indexViewModel = new IndexViewModel
+            {
+                CourseViewModels = courseViewModels,
+                Querry = querry,
+                OrderBy = orderBy,
+                OrderByNameParam = string.IsNullOrEmpty(orderBy) ? QuerryStrings.CourseNameDesc : string.Empty,
+                OrderByCategoryParam = orderBy == QuerryStrings.CourseCategoryName ?
+                    QuerryStrings.CourseCategoryNameDesc : QuerryStrings.CourseCategoryName,
+                OrderByAuthorParam = orderBy == QuerryStrings.CourseAuthorName ?
+                    QuerryStrings.CourseAuthorNameDesc : QuerryStrings.CourseAuthorName,
+                Page = page,
+                TotalPages = totalPages
+            };
+
+            return this.View(indexViewModel);
         }
 
         // GET: Course/Courses/Details/5

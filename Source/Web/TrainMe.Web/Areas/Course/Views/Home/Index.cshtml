@@ -1,0 +1,90 @@
+﻿@using TrainMe.Web.Infrastructure.Common
+@model IndexViewModel
+
+@{
+    ViewBag.Title = "Courses";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (this.Request.IsAuthenticated && this.User.IsInRole(RoleNamesConstants.TrainerRoleName))
+{
+    @(Html.ActionLink<HomeController>("Create New Course", c => c.Create(), htmlAttributes: new { @class = "btn btn-lg btn-success" }))
+    <hr/>
+}
+
+@using (Html.BeginForm<HomeController>(c => c.Index(Model.Querry, Model.OrderBy, Model.Page), FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
+{
+    <div class="form-group">
+        <label for="Querry">Search by name, trainer or category: </label>
+        @(Html.TextBoxFor(m => m.Querry, new { @class = "form-control" }))
+    </div>
+
+    <button type="submit" class="btn btn-default">Search</button>
+}
+
+<br/>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @(Html.ActionLink<HomeController>("Name", c => c.Index(Model.Querry, Model.OrderByNameParam, Model.Page)))
+        </th>
+        <th>
+            @(Html.ActionLink<HomeController>("Trainer", c => c.Index(Model.Querry, Model.OrderByAuthorParam, Model.Page)))
+        </th>
+        <th>
+            @(Html.ActionLink<HomeController>("Category", c => c.Index(Model.Querry, Model.OrderByCategoryParam, Model.Page)))
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.CourseViewModels)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+                @*@(item.Name.Length > 50 ? item.Name.Substring(0, 47) + "..." : item.Name)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorUserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @(Html.ActionLink<HomeController>("Details", c => c.Details(item.Id), htmlAttributes: new { @class = "btn btn-info" }))
+            </td>
+        </tr>
+    }
+
+</table>
+
+<nav>
+    <ul class="pagination">
+        @if (Model.Page > 1)
+        {
+            <li>
+                <a href="@(Url.Action<HomeController>(c => c.Index(Model.Querry, Model.OrderBy, Model.Page - 1)))" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li @(Model.Page == i ? "class=active" : string.Empty)>
+                @(Html.ActionLink<HomeController>(i.ToString(), c => c.Index(Model.Querry, Model.OrderBy, i)))
+            </li>
+        }
+
+        @if (Model.Page < Model.TotalPages)
+        {
+            <li>
+                <a href="@(Url.Action<HomeController>(c => c.Index(Model.Querry, Model.OrderBy, Model.Page + 1)))" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

@@ -1,8 +1,8 @@
 ﻿namespace TrainMe.Web.Areas.Admin.ViewModels.Category
 {
     using System.ComponentModel.DataAnnotations;
-    using TrainMe.Common;
     using TrainMe.Data.Models;
+    using TrainMe.Web.Infrastructure.Common;
     using TrainMe.Web.Infrastructure.Mapping;
 
     public class CategoryInputModel : IMapTo<Category>

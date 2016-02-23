@@ -14,7 +14,7 @@
             context.MapRoute(
                 name: "Course_default",
                 url: "Course/{controller}/{action}/{id}",
-                defaults: new { action = "Index", id = UrlParameter.Optional },
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 namespaces: new[] { "TrainMe.Web.Areas.Course.Controllers" });
         }
     }

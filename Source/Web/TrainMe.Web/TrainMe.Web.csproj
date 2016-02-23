@@ -210,8 +210,10 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\ViewModels\Category\CategoryInputModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Category\CategoryViewModel.cs" />
-    <Compile Include="Areas\Course\Controllers\CoursesController.cs" />
+    <Compile Include="Areas\Course\Controllers\HomeController.cs" />
     <Compile Include="Areas\Course\CourseAreaRegistration.cs" />
+    <Compile Include="Areas\Course\ViewModels\CourseViewModel.cs" />
+    <Compile Include="Areas\Course\ViewModels\IndexViewModel.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -282,11 +284,11 @@
     <Content Include="Areas\Admin\Views\Category\EditorTemplates\FileUpload.cshtml" />
     <Content Include="Areas\Course\Views\web.config" />
     <Content Include="Areas\Course\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Course\Views\Courses\Create.cshtml" />
-    <Content Include="Areas\Course\Views\Courses\Delete.cshtml" />
-    <Content Include="Areas\Course\Views\Courses\Details.cshtml" />
-    <Content Include="Areas\Course\Views\Courses\Edit.cshtml" />
-    <Content Include="Areas\Course\Views\Courses\Index.cshtml" />
+    <Content Include="Areas\Course\Views\Home\Create.cshtml" />
+    <Content Include="Areas\Course\Views\Home\Delete.cshtml" />
+    <Content Include="Areas\Course\Views\Home\Details.cshtml" />
+    <Content Include="Areas\Course\Views\Home\Edit.cshtml" />
+    <Content Include="Areas\Course\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -337,7 +339,6 @@
     <Content Include="Views\Home\DisplayTemplates\CategoryViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Course\Models\" />
     <Folder Include="Areas\Course\Views\Shared\" />
     <Folder Include="Content\images\categories\" />
     <Folder Include="Properties\PublishProfiles\" />
@@ -356,10 +357,6 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\TrainMe.Common\TrainMe.Common.csproj">
-      <Project>{138f8a95-7ed0-4ce8-8fc4-7b7bda9760f2}</Project>
-      <Name>TrainMe.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Data\TrainMe.Data.Models\TrainMe.Data.Models.csproj">
       <Project>{048df115-fad9-4bd4-9ba0-d99dfd32a2b2}</Project>
       <Name>TrainMe.Data.Models</Name>

@@ -1,8 +1,7 @@
 ﻿namespace TrainMe.Web.ViewModels.Account
 {
     using System.ComponentModel.DataAnnotations;
-
-    using TrainMe.Common;
+    using TrainMe.Web.Infrastructure.Common;
 
     public class RegisterViewModel
     {

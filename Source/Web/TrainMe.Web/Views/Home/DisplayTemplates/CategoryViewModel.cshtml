@@ -3,6 +3,8 @@
 @model TrainMe.Web.ViewModels.Home.CategoryViewModel
 
 <div class="col-xs-12 col-sm-6 col-md-3">
-    <h4 class="text-center">@Model.Name</h4>
-    @Html.Raw(Html.Image(Url.Content(Constants.CategoryImagesPath) + Model.ImageFileName, Model.Name, "200"))
+    <a href="@(Url.Action<TrainMe.Web.Areas.Course.Controllers.HomeController>(c => c.Index(Model.Name, null, 1)))">
+        <h4 class="text-center">@Model.Name</h4>
+        @Html.Image(Url.Content(Constants.CategoryImagesPath) + Model.ImageFileName, Model.Name, "200")
+    </a>
 </div>

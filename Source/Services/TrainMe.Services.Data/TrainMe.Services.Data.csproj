@@ -78,6 +78,10 @@
       <Project>{7c950cdc-9587-4b65-a204-988efed17948}</Project>
       <Name>TrainMe.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Web\TrainMe.Web.Infrastructure\TrainMe.Web.Infrastructure.csproj">
+      <Project>{6813dc53-5eee-4507-8604-5301ee51a0d3}</Project>
+      <Name>TrainMe.Web.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

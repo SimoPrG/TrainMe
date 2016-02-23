@@ -1,4 +1,4 @@
-﻿namespace TrainMe.Common
+﻿namespace TrainMe.Web.Infrastructure.Common
 {
     public static class ValidationConstants
     {

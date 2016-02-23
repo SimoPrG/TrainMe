@@ -1,11 +1,12 @@
-﻿namespace TrainMe.Common
+﻿namespace TrainMe.Web.Infrastructure.Common
 {
     using System;
     using System.Text;
 
     public static class RandomGenerator
     {
-        private const string Symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        private const string SymbolsWithSpaces = "ABCDE FGHIJ KLMNO PQRST UVWXY Zabcd efghi jklmn opqrs tuvwx yz123 45678 90";
+        private const string SymbolsOnly = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
 
         private static readonly Random Random = new Random();
 
@@ -38,9 +39,29 @@
 
             var length = RandomGenerator.Random.Next(minLength, maxLength + 1);
             var result = new StringBuilder();
+            bool isPreviousSpace = false;
             for (int i = 0; i < length; i++)
             {
-                result.Append(RandomGenerator.Symbols[RandomGenerator.Random.Next(RandomGenerator.Symbols.Length)]);
+                if (i == 0 || i == length - 1 || isPreviousSpace)
+                {
+                    result.Append(RandomGenerator.SymbolsOnly[RandomGenerator.Random.Next(RandomGenerator.SymbolsOnly.Length)]);
+                    if (isPreviousSpace)
+                    {
+                        isPreviousSpace = false;
+                    }
+
+                    continue;
+                }
+
+                char current =
+                    RandomGenerator.SymbolsWithSpaces[
+                        RandomGenerator.Random.Next(RandomGenerator.SymbolsWithSpaces.Length)];
+                result.Append(current);
+
+                if (current == ' ')
+                {
+                    isPreviousSpace = true;
+                }
             }
 
             return result.ToString();

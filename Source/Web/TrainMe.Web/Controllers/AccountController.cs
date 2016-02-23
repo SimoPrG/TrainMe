@@ -8,8 +8,8 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
-    using TrainMe.Common;
     using TrainMe.Data.Models;
+    using TrainMe.Web.Infrastructure.Common;
     using TrainMe.Web.ViewModels.Account;
 
     [Authorize]

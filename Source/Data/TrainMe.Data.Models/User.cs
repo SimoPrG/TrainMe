@@ -9,9 +9,8 @@
 
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-
-    using TrainMe.Common;
     using TrainMe.Data.Models.Contracts;
+    using TrainMe.Web.Infrastructure.Common;
 
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class User : IdentityUser, IBaseModel

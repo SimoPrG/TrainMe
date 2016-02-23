@@ -1,9 +1,9 @@
 ﻿namespace TrainMe.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using TrainMe.Common;
     using TrainMe.Data.Models.Base;
     using TrainMe.Data.Models.Contracts;
+    using TrainMe.Web.Infrastructure.Common;
 
     public class Lesson : BaseModel
     {

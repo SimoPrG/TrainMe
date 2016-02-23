@@ -1,4 +1,4 @@
-﻿namespace TrainMe.Common
+﻿namespace TrainMe.Web.Infrastructure.Common
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
