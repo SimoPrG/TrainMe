@@ -7,6 +7,7 @@
     using Kendo.Mvc.UI;
     using TrainMe.Data.Models;
     using TrainMe.Services.Data.Contracts;
+    using TrainMe.Web.Areas.Admin.InputModels.Category;
     using TrainMe.Web.Areas.Admin.ViewModels.Category;
     using TrainMe.Web.Common;
     using TrainMe.Web.Infrastructure.Mapping;

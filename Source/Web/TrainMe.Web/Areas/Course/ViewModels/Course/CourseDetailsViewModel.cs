@@ -23,5 +23,9 @@
 
         [DisplayName("Number of attendees")]
         public int AttendeesCount { get; set; }
+
+        public bool UserIsEnrolled { get; set; }
+
+        public bool UserCanEnroll { get; set; }
     }
 }

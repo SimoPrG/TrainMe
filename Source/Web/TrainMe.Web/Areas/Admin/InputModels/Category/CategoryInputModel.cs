@@ -1,4 +1,4 @@
-﻿namespace TrainMe.Web.Areas.Admin.ViewModels.Category
+﻿namespace TrainMe.Web.Areas.Admin.InputModels.Category
 {
     using System.ComponentModel.DataAnnotations;
     using TrainMe.Data.Models;

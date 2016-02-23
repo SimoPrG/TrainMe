@@ -1,13 +1,18 @@
-﻿@model TrainMe.Web.Areas.Course.ViewModels.Course.CourseDetailsViewModel
+﻿@using TrainMe.Web.Infrastructure.Common
+@model TrainMe.Web.Areas.Course.ViewModels.Course.CourseDetailsViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Name;
+}
+
+@if (this.TempData[TempDataKeys.UserMessage] != null)
+{
+    <div class="alert alert-warning">@this.TempData[TempDataKeys.UserMessage]</div>
 }
 
 <h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>Course</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -62,4 +67,13 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @(Html.ActionLink<HomeController>("Back to List", c => c.Index(null, null, null, 1)))
+
+    @if (Model.UserCanEnroll)
+    {
+        using (Html.BeginForm<CourseController>(c => c.Enroll(Model.Id), FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-lg btn-success pull-right">Enroll!</button>
+        }
+    }
 </p>

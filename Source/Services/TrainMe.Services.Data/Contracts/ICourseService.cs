@@ -10,5 +10,7 @@
         int CountCourses(string querry, string category);
 
         Course GetById(int id);
+
+        void Update();
     }
 }

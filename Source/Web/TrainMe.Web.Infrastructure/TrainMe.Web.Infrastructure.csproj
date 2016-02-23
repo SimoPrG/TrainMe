@@ -78,6 +78,7 @@
     <Compile Include="Common\QuerryStrings.cs" />
     <Compile Include="Common\RandomGenerator.cs" />
     <Compile Include="Common\RoleNamesConstants.cs" />
+    <Compile Include="Common\TempDataKeys.cs" />
     <Compile Include="Common\ValidationConstants.cs" />
     <Compile Include="Common\Validator.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />

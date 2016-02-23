@@ -208,11 +208,12 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Category\CategoryInputModel.cs" />
+    <Compile Include="Areas\Admin\InputModels\Category\CategoryInputModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Category\CategoryViewModel.cs" />
     <Compile Include="Areas\Course\Controllers\CourseController.cs" />
     <Compile Include="Areas\Course\Controllers\HomeController.cs" />
     <Compile Include="Areas\Course\CourseAreaRegistration.cs" />
+    <Compile Include="Areas\Course\InputModels\Course\CourseEnrollInputModel.cs" />
     <Compile Include="Areas\Course\ViewModels\Category\CategoryViewModel.cs" />
     <Compile Include="Areas\Course\ViewModels\Course\CourseDetailsViewModel.cs" />
     <Compile Include="Areas\Course\ViewModels\Course\CourseViewModel.cs" />
