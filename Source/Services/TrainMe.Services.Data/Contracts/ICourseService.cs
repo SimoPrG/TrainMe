@@ -1,6 +1,5 @@
 ﻿namespace TrainMe.Services.Data.Contracts
 {
-    using System.Collections.Generic;
     using System.Linq;
     using TrainMe.Data.Models;
 
@@ -9,5 +8,7 @@
         IQueryable<Course> All(string querry, string category, string orderBy, int page, int pageSize);
 
         int CountCourses(string querry, string category);
+
+        Course GetById(int id);
     }
 }

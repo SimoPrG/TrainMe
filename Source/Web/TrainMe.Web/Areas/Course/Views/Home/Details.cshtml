@@ -1,37 +1,37 @@
-﻿@model TrainMe.Data.Models.Course
+﻿@model CourseDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
     <h4>Course</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Author.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorUserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuthorUserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
         </dd>
 
         <dt>
@@ -43,40 +43,23 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CreatedOn)
+            @Html.DisplayNameFor(model => model.LessonsCount)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CreatedOn)
+            @Html.DisplayFor(model => model.LessonsCount)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ModifiedOn)
+            @Html.DisplayNameFor(model => model.AttendeesCount)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ModifiedOn)
+            @Html.DisplayFor(model => model.AttendeesCount)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DeletedOn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DeletedOn)
-        </dd>
-
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @(Html.ActionLink<HomeController>("Back to List", c => c.Index(null, null, null, 1)))
 </p>

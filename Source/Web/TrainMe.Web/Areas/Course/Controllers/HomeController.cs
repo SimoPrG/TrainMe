@@ -1,5 +1,6 @@
 ﻿namespace TrainMe.Web.Areas.Course.Controllers
 {
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
     using System.Net;
@@ -37,7 +38,10 @@
             var courseViewModels =
                 this.courseService.All(querry, category, orderBy, page, PageSize).To<CourseViewModel>().ToList();
 
-            var allCategories = this.categoryService.All().To<CategoryViewModel>().To<SelectListItem>().ToList();
+            var allCategories = this.Cache.Get<IEnumerable<SelectListItem>>(
+                "allCategories",
+                () => this.categoryService.All().To<CategoryViewModel>().To<SelectListItem>().ToList(),
+                2 * 60 * 60);
 
             var indexViewModel = new IndexViewModel
             {
@@ -65,12 +69,16 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+
+            var course = this.courseService.GetById(id.Value);
             if (course == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
-            return View(course);
+
+            var courseDetailsViewModel = this.Mapper.Map<CourseDetailsViewModel>(course);
+
+            return this.View(courseDetailsViewModel);
         }
 
         // GET: Course/Courses/Create

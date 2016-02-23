@@ -213,6 +213,7 @@
     <Compile Include="Areas\Course\Controllers\HomeController.cs" />
     <Compile Include="Areas\Course\CourseAreaRegistration.cs" />
     <Compile Include="Areas\Course\ViewModels\CategoryViewModel.cs" />
+    <Compile Include="Areas\Course\ViewModels\CourseDetailsViewModel.cs" />
     <Compile Include="Areas\Course\ViewModels\CourseViewModel.cs" />
     <Compile Include="Areas\Course\ViewModels\IndexViewModel.cs" />
     <Compile Include="Common\Constants.cs" />

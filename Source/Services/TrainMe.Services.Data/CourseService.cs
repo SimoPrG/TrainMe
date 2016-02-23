@@ -49,6 +49,11 @@
             return this.QueryCourses(querry, category).Count();
         }
 
+        public Course GetById(int id)
+        {
+            return this.UnitOfWork.Courses.GetById(id);
+        }
+
         private IQueryable<Course> QueryCourses(string querry, string category)
         {
             var courses = this.UnitOfWork.Courses.All()
@@ -57,7 +62,7 @@
 
             if (!string.IsNullOrWhiteSpace(querry))
             {
-                courses = courses.Where(c => c.Name == querry || c.Author.UserName == querry);
+                courses = courses.Where(c => c.Name.IndexOf(querry) != -1 || c.Author.UserName.IndexOf(querry) != -1);
             }
 
             if (!string.IsNullOrWhiteSpace(category))

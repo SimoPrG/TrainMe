@@ -34,7 +34,7 @@
         public virtual TEntity GetById(object id)
         {
             var entity = this.GetByIdWithDeleted(id);
-            if (entity.IsDeleted)
+            if (entity == null || entity.IsDeleted)
             {
                 return null;
             }
