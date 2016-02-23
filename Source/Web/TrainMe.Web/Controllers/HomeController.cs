@@ -1,5 +1,7 @@
 ﻿namespace TrainMe.Web.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
 
     using TrainMe.Services.Data.Contracts;
@@ -18,7 +20,12 @@
         public ActionResult Index()
         {
             const int NumberOfCategoriesToDisplay = 8;
-            var mostPopularCategories = this.categoryService.GetMostPopular(NumberOfCategoriesToDisplay).To<CategoryViewModel>();
+
+            var mostPopularCategories = this.Cache.Get<IEnumerable<CategoryViewModel>>(
+                "popularCategories",
+                () => this.categoryService.GetMostPopular(NumberOfCategoriesToDisplay).To<CategoryViewModel>().ToList(),
+                2 * 60 * 60);
+
             return this.View(mostPopularCategories);
         }
     }
