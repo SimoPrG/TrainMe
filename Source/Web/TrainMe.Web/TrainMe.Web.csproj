@@ -293,6 +293,8 @@
     <Content Include="Areas\Course\Views\Course\Details.cshtml" />
     <Content Include="Areas\Course\Views\Course\Edit.cshtml" />
     <Content Include="Areas\Course\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Course\Views\Course\_EnrollPartial.cshtml" />
+    <Content Include="Areas\Course\Views\Course\_CreateLinkPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -341,6 +343,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\jquery-2.2.0.min.map" />
     <Content Include="Views\Home\DisplayTemplates\CategoryViewModel.cshtml" />
+    <Content Include="Views\Shared\_LoginLinkPartial.cshtml" />
+    <Content Include="Views\Shared\_RegisterLinkPartial.cshtml" />
+    <Content Include="Views\Shared\_WarningPartial.cshtml" />
+    <Content Include="Views\Shared\_RegisterOrLoginToProceedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Course\Views\Shared\" />

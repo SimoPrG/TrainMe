@@ -1,17 +1,14 @@
-﻿@using TrainMe.Web.Infrastructure.Common
-@model TrainMe.Web.Areas.Course.ViewModels.Course.IndexViewModel
+﻿@model TrainMe.Web.Areas.Course.ViewModels.Course.IndexViewModel
 
 @{
-    ViewBag.Title = "Courses";
+    ViewBag.Title = "Find A Course";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@if (this.Request.IsAuthenticated && this.User.IsInRole(RoleNamesConstants.TrainerRoleName))
-{
-    @(Html.ActionLink<CourseController>("Create New Course", c => c.Create(), htmlAttributes: new { @class = "btn btn-lg btn-success" }))
-    <hr />
-}
+@(Html.Action<CourseController>(c => c.RenderCreateLink()))
+
+<hr />
 
 @using (Html.BeginForm<HomeController>(c => c.Index(Model.Querry, Model.Category, Model.OrderBy, Model.Page), FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
 {

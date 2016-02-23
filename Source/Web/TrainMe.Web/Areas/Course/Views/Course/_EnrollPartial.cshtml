@@ -1,0 +1,8 @@
+﻿@model TrainMe.Web.Areas.Course.InputModels.Course.CourseEnrollInputModel
+
+@using (Html.BeginForm<CourseController>(c => c.Enroll(null), FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.CourseId)
+    <button type="submit" class="btn btn-lg btn-success pull-right">Enroll!</button>
+}

@@ -5,24 +5,13 @@
     ViewBag.Title = Model.Name;
 }
 
-@if (this.TempData[TempDataKeys.UserMessage] != null)
-{
-    <div class="alert alert-warning">@this.TempData[TempDataKeys.UserMessage]</div>
-}
+@(Html.Action<CourseController>(c => c.RenderWarning(TempDataKeys.UserMessage)))
 
 <h2>@ViewBag.Title</h2>
 
 <div>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.AuthorUserName)
         </dt>
@@ -67,13 +56,6 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @(Html.ActionLink<HomeController>("Back to List", c => c.Index(null, null, null, 1)))
-
-    @if (Model.UserCanEnroll)
-    {
-        using (Html.BeginForm<CourseController>(c => c.Enroll(Model.Id), FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            <button type="submit" class="btn btn-lg btn-success pull-right">Enroll!</button>
-        }
-    }
 </p>
+
+@(Html.Action<CourseController>(c => c.RenderEnroll()))

@@ -10,5 +10,16 @@
         public ICacheService Cache { get; set; }
 
         protected IMapper Mapper => AutoMapperConfig.Configuration.CreateMapper();
+
+        [ChildActionOnly]
+        public ActionResult RenderWarning(string tempDataKey)
+        {
+            if (this.TempData[tempDataKey] != null)
+            {
+                return this.PartialView("_WarningPartial", tempDataKey);
+            }
+
+            return new EmptyResult();
+        }
     }
 }

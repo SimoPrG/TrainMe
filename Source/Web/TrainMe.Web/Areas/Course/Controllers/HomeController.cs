@@ -1,15 +1,9 @@
 ﻿namespace TrainMe.Web.Areas.Course.Controllers
 {
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Linq;
-    using System.Net;
     using System.Web.Mvc;
-    using Microsoft.AspNet.Identity;
-    using TrainMe.Data;
-    using TrainMe.Data.Models;
     using TrainMe.Services.Data.Contracts;
-    using TrainMe.Web.Areas.Course.ViewModels;
     using TrainMe.Web.Areas.Course.ViewModels.Category;
     using TrainMe.Web.Areas.Course.ViewModels.Course;
     using TrainMe.Web.Controllers;
@@ -52,7 +46,8 @@
                 Category = category,
                 Querry = querry,
                 OrderBy = orderBy,
-                OrderByNameParam = string.IsNullOrEmpty(orderBy) ? QuerryStrings.CourseNameDesc : string.Empty,
+                OrderByNameParam = string.IsNullOrEmpty(orderBy) ?
+                    QuerryStrings.CourseNameDesc : string.Empty,
                 OrderByCategoryParam = orderBy == QuerryStrings.CourseCategoryName ?
                     QuerryStrings.CourseCategoryNameDesc : QuerryStrings.CourseCategoryName,
                 OrderByAuthorParam = orderBy == QuerryStrings.CourseAuthorName ?

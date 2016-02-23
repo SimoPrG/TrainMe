@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNet.Identity
-@using TrainMe.Web.Controllers
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm<AccountController>(c => c.LogOff(), FormMethod.Post, htmlAttributes: new { id = "logoutForm", @class = "navbar-right" }))
@@ -8,7 +7,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @(Html.ActionLink<ManageController>("Hello " + User.Identity.GetUserName() + "!", c => c.Index(null), htmlAttributes: new { title = "Manage" }))
+                @(Html.ActionLink<ManageController>("Hello, " + User.Identity.GetUserName() + "!", c => c.Index(null), htmlAttributes: new { title = "Manage" }))
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
@@ -17,7 +16,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@(Html.ActionLink<AccountController>("Register", c => c.Register(), htmlAttributes: new { id = "registerLink" }))</li>
-        <li>@(Html.ActionLink<AccountController>("Log in", c => c.Login(null), htmlAttributes: new { id = "loginLink" }))</li>
+        <li>@Html.Partial("_RegisterLinkPartial")</li>
+        <li>@Html.Partial("_LoginLinkPartial")</li>
     </ul>
 }

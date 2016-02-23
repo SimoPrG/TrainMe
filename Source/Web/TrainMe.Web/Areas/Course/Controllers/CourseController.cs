@@ -14,6 +14,7 @@
 
     public class CourseController : BaseController
     {
+        private const string HttpRequestItemsCourseKey = "course";
         private readonly ICourseService courseService;
         private readonly IUserService userService;
         private TrainMeDbContext db = new TrainMeDbContext();
@@ -37,20 +38,9 @@
                 return this.HttpNotFound();
             }
 
-            var courseDetailsViewModel = this.Mapper.Map<CourseDetailsViewModel>(course);
+            this.HttpContext.Items[HttpRequestItemsCourseKey] = course;
 
-            if (this.Request.IsAuthenticated)
-            {
-                var user = this.userService.GetById(this.User.Identity.GetUserId());
-                if (course.Author == user || course.Attendees.Contains(user))
-                {
-                    courseDetailsViewModel.UserIsEnrolled = true;
-                }
-                else
-                {
-                    courseDetailsViewModel.UserCanEnroll = true;
-                }
-            }
+            var courseDetailsViewModel = this.Mapper.Map<CourseDetailsViewModel>(course);
 
             return this.View(courseDetailsViewModel);
         }
@@ -58,14 +48,14 @@
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Enroll(int? courseId)
+        public ActionResult Enroll(CourseEnrollInputModel courseEnrollInputModel)
         {
-            if (courseId == null)
+            if (courseEnrollInputModel == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var course = this.courseService.GetById(courseId.Value);
+            var course = this.courseService.GetById(courseEnrollInputModel.CourseId);
             if (course == null)
             {
                 return this.HttpNotFound();
@@ -88,7 +78,36 @@
                 this.TempData[TempDataKeys.UserMessage] = "You have successfully enrolled for this course.";
             }
 
-            return this.RedirectToAction("Details", new { id = courseId });
+            return this.RedirectToAction("Details", new { id = courseEnrollInputModel.CourseId });
+        }
+
+        [ChildActionOnly]
+        public ActionResult RenderCreateLink()
+        {
+            if (this.User.IsInRole(RoleNamesConstants.TrainerRoleName))
+            {
+                return this.PartialView("_CreateLinkPartial");
+            }
+
+            return new EmptyResult();
+        }
+
+        [ChildActionOnly]
+        public ActionResult RenderEnroll()
+        {
+            if (this.Request.IsAuthenticated)
+            {
+                var course = (Course)this.HttpContext.Items[HttpRequestItemsCourseKey];
+                var user = this.userService.GetById(this.User.Identity.GetUserId());
+                if (course.Author != user && !course.Attendees.Contains(user))
+                {
+                    return this.PartialView("_EnrollPartial", new CourseEnrollInputModel { CourseId = course.Id });
+                }
+
+                return new EmptyResult();
+            }
+
+            return this.PartialView("_RegisterOrLoginToProceedPartial");
         }
 
         // GET: Course/Courses/Create
