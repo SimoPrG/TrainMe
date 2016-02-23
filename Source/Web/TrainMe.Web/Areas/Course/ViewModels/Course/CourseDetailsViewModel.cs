@@ -1,4 +1,4 @@
-﻿namespace TrainMe.Web.Areas.Course.ViewModels
+﻿namespace TrainMe.Web.Areas.Course.ViewModels.Course
 {
     using System.ComponentModel;
     using TrainMe.Data.Models;

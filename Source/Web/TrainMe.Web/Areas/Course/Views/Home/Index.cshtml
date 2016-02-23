@@ -1,5 +1,5 @@
 ﻿@using TrainMe.Web.Infrastructure.Common
-@model IndexViewModel
+@model TrainMe.Web.Areas.Course.ViewModels.Course.IndexViewModel
 
 @{
     ViewBag.Title = "Courses";
@@ -9,19 +9,19 @@
 
 @if (this.Request.IsAuthenticated && this.User.IsInRole(RoleNamesConstants.TrainerRoleName))
 {
-    @(Html.ActionLink<HomeController>("Create New Course", c => c.Create(), htmlAttributes: new { @class = "btn btn-lg btn-success" }))
+    @(Html.ActionLink<CourseController>("Create New Course", c => c.Create(), htmlAttributes: new { @class = "btn btn-lg btn-success" }))
     <hr />
 }
 
 @using (Html.BeginForm<HomeController>(c => c.Index(Model.Querry, Model.Category, Model.OrderBy, Model.Page), FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
 {
     <div class="form-group">
-        <label for="Querry">Search by name or trainer:</label>
-        @(Html.TextBoxFor(m => m.Querry, new { @class = "form-control" }))
+        @Html.LabelFor(m => m.Querry, "Search by name or trainer: ")
+        @Html.TextBoxFor(m => m.Querry, new { @class = "form-control" })
     </div>
 
     <div class="form-group">
-        <label for="Category">Category:</label>
+        @Html.LabelFor(m => m.Category, "Category: ")
         @Html.DropDownListFor(m => m.Category, Model.AllCategories, "--all categories--", new { @class = "form-control" })
     </div>
 
@@ -57,7 +57,7 @@
                 @Html.DisplayFor(modelItem => item.CategoryName)
             </td>
             <td>
-                @(Html.ActionLink<HomeController>("Details", c => c.Details(item.Id), htmlAttributes: new { @class = "btn btn-info" }))
+                @(Html.ActionLink<CourseController>("Details", c => c.Details(item.Id), htmlAttributes: new { @class = "btn btn-info" }))
             </td>
         </tr>
     }

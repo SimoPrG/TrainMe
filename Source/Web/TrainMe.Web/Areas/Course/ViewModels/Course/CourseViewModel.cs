@@ -1,4 +1,4 @@
-﻿namespace TrainMe.Web.Areas.Course.ViewModels
+﻿namespace TrainMe.Web.Areas.Course.ViewModels.Course
 {
     using TrainMe.Data.Models;
     using TrainMe.Web.Infrastructure.Mapping;

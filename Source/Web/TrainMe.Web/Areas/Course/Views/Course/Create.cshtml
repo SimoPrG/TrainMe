@@ -89,5 +89,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @(Html.ActionLink<HomeController>("Back to List", c => c.Index(null, null, null, 1)))
 </div>

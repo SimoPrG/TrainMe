@@ -1,4 +1,4 @@
-﻿namespace TrainMe.Web.Areas.Course.ViewModels
+﻿namespace TrainMe.Web.Areas.Course.ViewModels.Category
 {
     using System.Web.Mvc;
     using AutoMapper;
