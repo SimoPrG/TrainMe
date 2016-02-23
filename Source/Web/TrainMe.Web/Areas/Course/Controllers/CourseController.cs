@@ -9,12 +9,12 @@
     using TrainMe.Services.Data.Contracts;
     using TrainMe.Web.Areas.Course.InputModels.Course;
     using TrainMe.Web.Areas.Course.ViewModels.Course;
+    using WebCommon = TrainMe.Web.Common;
     using TrainMe.Web.Controllers;
     using TrainMe.Web.Infrastructure.Common;
 
     public class CourseController : BaseController
     {
-        private const string HttpRequestItemsCourseKey = "course";
         private readonly ICourseService courseService;
         private readonly IUserService userService;
         private TrainMeDbContext db = new TrainMeDbContext();
@@ -38,7 +38,7 @@
                 return this.HttpNotFound();
             }
 
-            this.HttpContext.Items[HttpRequestItemsCourseKey] = course;
+            this.HttpContext.Items[WebCommon.Constants.HttpRequestItemsCourseKey] = course;
 
             var courseDetailsViewModel = this.Mapper.Map<CourseDetailsViewModel>(course);
 
@@ -79,35 +79,6 @@
             }
 
             return this.RedirectToAction("Details", new { id = courseEnrollInputModel.CourseId });
-        }
-
-        [ChildActionOnly]
-        public ActionResult RenderCreateLink()
-        {
-            if (this.User.IsInRole(RoleNamesConstants.TrainerRoleName))
-            {
-                return this.PartialView("_CreateLinkPartial");
-            }
-
-            return new EmptyResult();
-        }
-
-        [ChildActionOnly]
-        public ActionResult RenderEnroll()
-        {
-            if (this.Request.IsAuthenticated)
-            {
-                var course = (Course)this.HttpContext.Items[HttpRequestItemsCourseKey];
-                var user = this.userService.GetById(this.User.Identity.GetUserId());
-                if (course.Author != user && !course.Attendees.Contains(user))
-                {
-                    return this.PartialView("_EnrollPartial", new CourseEnrollInputModel { CourseId = course.Id });
-                }
-
-                return new EmptyResult();
-            }
-
-            return this.PartialView("_RegisterOrLoginToProceedPartial");
         }
 
         // GET: Course/Courses/Create

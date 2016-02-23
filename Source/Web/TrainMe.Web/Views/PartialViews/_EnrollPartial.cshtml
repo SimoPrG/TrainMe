@@ -1,4 +1,5 @@
-﻿@model TrainMe.Web.Areas.Course.InputModels.Course.CourseEnrollInputModel
+﻿@using TrainMe.Web.Areas.Course.Controllers
+@model TrainMe.Web.Areas.Course.InputModels.Course.CourseEnrollInputModel
 
 @using (Html.BeginForm<CourseController>(c => c.Enroll(null), FormMethod.Post))
 {

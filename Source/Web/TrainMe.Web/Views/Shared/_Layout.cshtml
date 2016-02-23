@@ -1,6 +1,4 @@
-﻿@using TrainMe.Web.Controllers
-@using TrainMe.Web.Infrastructure.Common
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -23,20 +21,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @if (this.Request.IsAuthenticated && this.User.IsInRole(RoleNamesConstants.AdministratorRoleName))
-                    {
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li>@(Html.ActionLink<TrainMe.Web.Areas.Admin.Controllers.HomeController>("Home", c => c.Index()))</li>
-                                <li>@(Html.ActionLink<TrainMe.Web.Areas.Admin.Controllers.CategoryController>("Categories", c => c.Index()))</li>
-                            </ul>
-                        </li>
-                    }
-
+                    @(Html.Action<PartialViewsController>(c => c.RenderAdminMenu()))
                     <li>@(Html.ActionLink<TrainMe.Web.Areas.Course.Controllers.HomeController>("Find A Course", c => c.Index(null, null, null, 1)))</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @(Html.Action<PartialViewsController>(c => c.RenderLogInRegisterOrLogOff()))
             </div>
         </div>
     </div>
