@@ -4,7 +4,6 @@
     using System.ComponentModel.DataAnnotations;
     using TrainMe.Common;
     using TrainMe.Data.Models.Base;
-    using TrainMe.Data.Models.Contracts;
 
     public class Course : BaseModel
     {

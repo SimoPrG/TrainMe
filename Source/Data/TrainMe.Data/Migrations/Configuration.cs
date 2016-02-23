@@ -1,5 +1,7 @@
 ﻿namespace TrainMe.Data.Migrations
 {
+    using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
     using Microsoft.AspNet.Identity;
@@ -19,12 +21,21 @@
         protected override void Seed(TrainMeDbContext context)
         {
             this.SeedRoles(context);
+
             this.SeedUsers(context);
+
+            // this.SeedFileDetails(context);
+            // this.SeedCategories(context);
             this.SeedCourses(context);
         }
 
         private void SeedRoles(TrainMeDbContext context)
         {
+            if (context.Roles.Any())
+            {
+                return;
+            }
+
             var roleStore = new RoleStore<IdentityRole>(context);
             var roleMgr = new RoleManager<IdentityRole>(roleStore);
 
@@ -39,6 +50,11 @@
 
         private void SeedUsers(TrainMeDbContext context)
         {
+            if (context.Users.Any())
+            {
+                return;
+            }
+
             var userMgr = new UserManager<User>(new UserStore<User>(context));
 
             // seed admin
@@ -58,34 +74,82 @@
                 userMgr.AddToRole(userMgr.FindByEmail(AdminEmail).Id, RoleNamesConstants.AdministratorRoleName);
             }
 
-            // seed user
-            const string UserEmail = "user@train.me";
-            var user = new User
+            // seed users
+            for (int i = 1; i <= 12; i++)
             {
-                FirstName = "User",
-                LastName = "Userov",
-                UserName = "User",
-                Email = UserEmail
-            };
+                string userEmail = $"user{i}@train.me";
+                var user = new User
+                {
+                    FirstName = $"User{i}",
+                    LastName = $"Userov{i}",
+                    UserName = $"User{i}",
+                    Email = userEmail
+                };
 
-            userMgr.Create(user, "123456");
+                userMgr.Create(user, "123456");
 
-            if (!userMgr.IsInRole(userMgr.FindByEmail(UserEmail).Id, RoleNamesConstants.UserRoleName))
-            {
-                userMgr.AddToRole(userMgr.FindByEmail(UserEmail).Id, RoleNamesConstants.UserRoleName);
+                if (!userMgr.IsInRole(userMgr.FindByEmail(userEmail).Id, RoleNamesConstants.UserRoleName))
+                {
+                    userMgr.AddToRole(userMgr.FindByEmail(userEmail).Id, RoleNamesConstants.UserRoleName);
+                }
+
+                if (i % 3 == 0 && !userMgr.IsInRole(userMgr.FindByEmail(userEmail).Id, RoleNamesConstants.TrainerRoleName))
+                {
+                    userMgr.AddToRole(userMgr.FindByEmail(userEmail).Id, RoleNamesConstants.TrainerRoleName);
+                }
             }
+        }
+
+        private void SeedFileDetails(TrainMeDbContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void SeedCategories(TrainMeDbContext context)
+        {
+            throw new System.NotImplementedException();
         }
 
         private void SeedCourses(TrainMeDbContext context)
         {
-            var courses = context.Courses.ToArray();
-            if (courses.Any())
+            // TODO: fix the if when categories are seeded with images
+            if (context.Courses.Any() || !context.Categories.Any())
             {
                 return;
             }
 
-            // TODO: seed
-            context.Courses.AddOrUpdate(courses);
+            var categories = context.Categories.ToArray();
+
+            var trainerRoleId = context.Roles.First(r => r.Name == RoleNamesConstants.TrainerRoleName).Id;
+            var authors = context.Users
+                .Where(u => u.Roles.Any(r => r.RoleId == trainerRoleId))
+                .ToArray();
+
+            var attendees = context.Users.ToArray();
+            var attendeesMaxCount = attendees.Length - 1;
+
+            for (int i = 0; i < 100; i++)
+            {
+                var currentAuthor = authors[RandomGenerator.GetRandomNumber(0, authors.Length - 1)];
+
+                var currentAttendees = attendees
+                    .Where(a => a != currentAuthor)
+                    .OrderBy(a => Guid.NewGuid())
+                    .Take(RandomGenerator.GetRandomNumber(0, attendeesMaxCount)).ToArray();
+
+                var course = new Course
+                {
+                    Name = RandomGenerator.GetRandomString(3, ValidationConstants.CourseNameMaxLength),
+                    Description = RandomGenerator.GetRandomString(10, ValidationConstants.CourseDescriptionMaxLength),
+                    Category = categories[RandomGenerator.GetRandomNumber(0, categories.Length - 1)],
+                    Author = currentAuthor,
+                    Attendees = currentAttendees
+                };
+
+                context.Courses.Add(course);
+            }
+
+            context.SaveChanges();
         }
     }
 }
