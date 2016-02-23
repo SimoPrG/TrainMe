@@ -15,9 +15,9 @@
         {
         }
 
-        public IQueryable<Course> GetAll(string querry, string orderBy, int page, int pageSize)
+        public IQueryable<Course> All(string querry, string category, string orderBy, int page, int pageSize)
         {
-            var courses = this.QueryCourses(querry);
+            var courses = this.QueryCourses(querry, category);
 
             switch (orderBy)
             {
@@ -44,12 +44,12 @@
             return courses.Skip((page - 1) * pageSize).Take(pageSize);
         }
 
-        public int CountCourses(string querry)
+        public int CountCourses(string querry, string category)
         {
-            return this.QueryCourses(querry).Count();
+            return this.QueryCourses(querry, category).Count();
         }
 
-        private IQueryable<Course> QueryCourses(string querry)
+        private IQueryable<Course> QueryCourses(string querry, string category)
         {
             var courses = this.UnitOfWork.Courses.All()
                 .Include(c => c.Category)
@@ -57,7 +57,12 @@
 
             if (!string.IsNullOrWhiteSpace(querry))
             {
-                courses = courses.Where(c => c.Name == querry || c.Category.Name == querry || c.Author.UserName == querry);
+                courses = courses.Where(c => c.Name == querry || c.Author.UserName == querry);
+            }
+
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                courses = courses.Where(c => c.Category.Name == category);
             }
 
             return courses;

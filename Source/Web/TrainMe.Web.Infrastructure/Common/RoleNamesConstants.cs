@@ -10,6 +10,6 @@
         public const string UserRoleName = "user";
 
         public static readonly IReadOnlyCollection<string> AllRoleNames =
-            new ReadOnlyCollection<string>(new []{ AdministratorRoleName, TrainerRoleName, UserRoleName });
+            new ReadOnlyCollection<string>(new[] { AdministratorRoleName, TrainerRoleName, UserRoleName });
     }
 }

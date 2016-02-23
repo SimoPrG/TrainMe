@@ -15,29 +15,35 @@
     public class HomeController : BaseController
     {
         private readonly ICourseService courseService;
+        private readonly ICategoryService categoryService;
         private TrainMeDbContext db = new TrainMeDbContext();
 
-        public HomeController(ICourseService courseService)
+        public HomeController(ICourseService courseService, ICategoryService categoryService)
         {
             this.courseService = courseService;
+            this.categoryService = categoryService;
         }
 
         [ValidateInput(false)]
-        public ActionResult Index(string querry, string orderBy, int page = 1)
+        public ActionResult Index(string querry, string category, string orderBy, int page = 1)
         {
             const int PageSize = 10;
 
-            int totalCoursesCount = this.courseService.CountCourses(querry);
+            int totalCoursesCount = this.courseService.CountCourses(querry, category);
             int totalPages = (totalCoursesCount + PageSize - 1) / PageSize;
 
             page = Validator.ValidatePage(page, totalPages);
 
             var courseViewModels =
-                this.courseService.GetAll(querry, orderBy, page, PageSize).To<CourseViewModel>().ToList();
+                this.courseService.All(querry, category, orderBy, page, PageSize).To<CourseViewModel>().ToList();
+
+            var allCategories = this.categoryService.All().To<CategoryViewModel>().To<SelectListItem>().ToList();
 
             var indexViewModel = new IndexViewModel
             {
                 CourseViewModels = courseViewModels,
+                AllCategories = allCategories,
+                Category = category,
                 Querry = querry,
                 OrderBy = orderBy,
                 OrderByNameParam = string.IsNullOrEmpty(orderBy) ? QuerryStrings.CourseNameDesc : string.Empty,

@@ -6,8 +6,8 @@
 
     public interface ICourseService
     {
-        IQueryable<Course> GetAll(string querry, string orderBy, int page, int pageSize);
+        IQueryable<Course> All(string querry, string category, string orderBy, int page, int pageSize);
 
-        int CountCourses(string querry);
+        int CountCourses(string querry, string category);
     }
 }
