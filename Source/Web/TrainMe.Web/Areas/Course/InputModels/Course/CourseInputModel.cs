@@ -7,7 +7,7 @@
     using TrainMe.Web.Infrastructure.Common;
     using TrainMe.Web.Infrastructure.Mapping;
 
-    public class CourseInputModel : IMapTo<Course>
+    public class CourseInputModel : IMapFrom<Course>, IMapTo<Course>
     {
         public int Id { get; set; }
 

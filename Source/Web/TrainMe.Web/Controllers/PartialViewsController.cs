@@ -68,6 +68,17 @@
             return new EmptyResult();
         }
 
+        public ActionResult RenderCourseEditAndDeleteButtons()
+        {
+            var course = (Course)this.HttpContext.Items[WebConstants.HttpRequestItemsCourseKey];
+            if (course.AuthorId == this.User.Identity.GetUserId())
+            {
+                return this.PartialView("_CourseEditAndDeleteButtons", new CourseDeleteInputModel { CourseId = course.Id });
+            }
+
+            return new EmptyResult();
+        }
+
         public ActionResult RenderEnroll()
         {
             if (this.Request.IsAuthenticated)

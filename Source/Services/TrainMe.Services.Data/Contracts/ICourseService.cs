@@ -13,6 +13,10 @@
 
         void Add(Course course);
 
+        void Update(Course course);
+
         void Update();
+
+        void Delete(Course course);
     }
 }

@@ -213,6 +213,7 @@
     <Compile Include="Areas\Course\Controllers\CourseController.cs" />
     <Compile Include="Areas\Course\Controllers\HomeController.cs" />
     <Compile Include="Areas\Course\CourseAreaRegistration.cs" />
+    <Compile Include="Areas\Course\InputModels\Course\CourseDeleteInputModel.cs" />
     <Compile Include="Areas\Course\InputModels\Course\CourseInputModel.cs" />
     <Compile Include="Areas\Course\InputModels\Course\CourseEnrollInputModel.cs" />
     <Compile Include="Areas\Course\ViewModels\Category\CategoryViewModel.cs" />
@@ -292,7 +293,6 @@
     <Content Include="Areas\Course\Views\web.config" />
     <Content Include="Areas\Course\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Course\Views\Course\Create.cshtml" />
-    <Content Include="Areas\Course\Views\Course\Delete.cshtml" />
     <Content Include="Areas\Course\Views\Course\Details.cshtml" />
     <Content Include="Areas\Course\Views\Course\Edit.cshtml" />
     <Content Include="Areas\Course\Views\Home\Index.cshtml" />
@@ -358,6 +358,7 @@
     <Content Include="Views\PartialViews\_SuccessPartial.cshtml" />
     <Content Include="Views\PartialViews\_InfoPartial.cshtml" />
     <Content Include="Views\PartialViews\_DangerPartial.cshtml" />
+    <Content Include="Views\PartialViews\_CourseEditAndDeleteButtons.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Course\Views\Shared\" />

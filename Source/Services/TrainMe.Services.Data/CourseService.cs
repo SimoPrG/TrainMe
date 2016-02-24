@@ -60,6 +60,18 @@
             this.UnitOfWork.Commit();
         }
 
+        public void Update(Course course)
+        {
+            this.UnitOfWork.Courses.Update(course);
+            this.UnitOfWork.Commit();
+        }
+
+        public void Delete(Course course)
+        {
+            this.UnitOfWork.Courses.Delete(course);
+            this.UnitOfWork.Commit();
+        }
+
         private IQueryable<Course> QueryCourses(string querry, int? categoryId)
         {
             var courses = this.UnitOfWork.Courses.All()

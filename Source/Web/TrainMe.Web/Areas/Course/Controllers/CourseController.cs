@@ -1,11 +1,9 @@
 ﻿namespace TrainMe.Web.Areas.Course.Controllers
 {
-    using System.Data.Entity;
     using System.Linq;
     using System.Net;
     using System.Web.Mvc;
     using Microsoft.AspNet.Identity;
-    using TrainMe.Data;
     using TrainMe.Data.Models;
     using TrainMe.Services.Data.Contracts;
     using TrainMe.Web.Areas.Course.InputModels.Course;
@@ -20,7 +18,6 @@
         private readonly ICourseService courseService;
         private readonly IUserService userService;
         private readonly ICategoryService categoryService;
-        private TrainMeDbContext db = new TrainMeDbContext();
 
         public CourseController(ICourseService courseService, IUserService userService, ICategoryService categoryService)
         {
@@ -43,12 +40,11 @@
                 return this.HttpNotFound();
             }
 
-            course.Name = this.Sanitizer.Sanitize(course.Name);
-            course.Description = this.Sanitizer.Sanitize(course.Description);
-
             this.HttpContext.Items[WebConstants.HttpRequestItemsCourseKey] = course;
 
             var courseDetailsViewModel = this.Mapper.Map<CourseDetailsViewModel>(course);
+            courseDetailsViewModel.Name = this.Sanitizer.Sanitize(courseDetailsViewModel.Name);
+            courseDetailsViewModel.Description = this.Sanitizer.Sanitize(courseDetailsViewModel.Description);
 
             return this.View(courseDetailsViewModel);
         }
@@ -126,14 +122,19 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+
+            var course = this.courseService.GetById(id.Value);
             if (course == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", course.AuthorId);
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", course.CategoryId);
-            return View(course);
+
+            var courseInputModel = this.Mapper.Map<CourseInputModel>(course);
+
+            courseInputModel.AllCategories =
+                this.categoryService.All().To<CategoryViewModel>().To<SelectListItem>().ToList();
+
+            return this.View(courseInputModel);
         }
 
         // POST: Course/Courses/Edit/5
@@ -141,52 +142,42 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,AuthorId,CategoryId,CreatedOn,ModifiedOn,IsDeleted,DeletedOn")] Course course)
+        public ActionResult Edit(CourseInputModel courseInputModel)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                var course = this.courseService.GetById(courseInputModel.Id);
+                course.Name = courseInputModel.Name;
+                course.Description = courseInputModel.Description;
+                course.CategoryId = courseInputModel.CategoryId;
+                this.courseService.Update(course);
+                return this.RedirectToAction("Details", new { Id = course.Id });
             }
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", course.AuthorId);
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", course.CategoryId);
-            return View(course);
+
+            courseInputModel.AllCategories =
+                this.categoryService.All().To<CategoryViewModel>().To<SelectListItem>().ToList();
+
+            return this.View(courseInputModel);
         }
 
-        // GET: Course/Courses/Delete/5
-        public ActionResult Delete(int? id)
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(CourseDeleteInputModel courseDeleteInputModel)
         {
-            if (id == null)
+            if (courseDeleteInputModel == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+
+            Course course = this.courseService.GetById(courseDeleteInputModel.CourseId);
             if (course == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
-            return View(course);
-        }
 
-        // POST: Course/Courses/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Course course = db.Courses.Find(id);
-            db.Courses.Remove(course);
-            db.SaveChanges();
-            return RedirectToAction("Index", "Home");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            this.courseService.Delete(course);
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }
