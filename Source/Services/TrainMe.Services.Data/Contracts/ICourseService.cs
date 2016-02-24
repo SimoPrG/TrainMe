@@ -5,11 +5,13 @@
 
     public interface ICourseService
     {
-        IQueryable<Course> All(string querry, string category, string orderBy, int page, int pageSize);
+        IQueryable<Course> All(string querry, int? categoryId, string orderBy, int page, int pageSize);
 
-        int CountCourses(string querry, string category);
+        int CountCourses(string querry, int? categoryId);
 
         Course GetById(int id);
+
+        void Add(Course course);
 
         void Update();
     }

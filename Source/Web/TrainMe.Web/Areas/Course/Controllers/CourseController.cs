@@ -1,6 +1,7 @@
 ﻿namespace TrainMe.Web.Areas.Course.Controllers
 {
     using System.Data.Entity;
+    using System.Linq;
     using System.Net;
     using System.Web.Mvc;
     using Microsoft.AspNet.Identity;
@@ -8,22 +9,27 @@
     using TrainMe.Data.Models;
     using TrainMe.Services.Data.Contracts;
     using TrainMe.Web.Areas.Course.InputModels.Course;
+    using TrainMe.Web.Areas.Course.ViewModels.Category;
     using TrainMe.Web.Areas.Course.ViewModels.Course;
     using TrainMe.Web.Common;
     using TrainMe.Web.Controllers;
+    using TrainMe.Web.Infrastructure.Mapping;
 
     public class CourseController : BaseController
     {
         private readonly ICourseService courseService;
         private readonly IUserService userService;
+        private readonly ICategoryService categoryService;
         private TrainMeDbContext db = new TrainMeDbContext();
 
-        public CourseController(ICourseService courseService, IUserService userService)
+        public CourseController(ICourseService courseService, IUserService userService, ICategoryService categoryService)
         {
             this.courseService = courseService;
             this.userService = userService;
+            this.categoryService = categoryService;
         }
 
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -80,31 +86,34 @@
             return this.RedirectToAction("Details", new { id = courseEnrollInputModel.CourseId });
         }
 
-        // GET: Course/Courses/Create
+        [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
-            return View();
+            var courseInputModel = new CourseInputModel
+            {
+                AllCategories = this.categoryService.All().To<CategoryViewModel>().To<SelectListItem>().ToList()
+            };
+
+            return this.View(courseInputModel);
         }
 
-        // POST: Course/Courses/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,AuthorId,CategoryId,CreatedOn,ModifiedOn,IsDeleted,DeletedOn")] Course course)
+        public ActionResult Create(CourseInputModel courseInputModel)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                db.Courses.Add(course);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                var course = this.Mapper.Map<Course>(courseInputModel);
+                course.AuthorId = this.User.Identity.GetUserId();
+
+                this.courseService.Add(course);
+
+                return this.RedirectToAction("Details", new { Id = course.Id });
             }
 
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", course.AuthorId);
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", course.CategoryId);
-            return View(course);
+            courseInputModel.AllCategories =
+                this.categoryService.All().To<CategoryViewModel>().To<SelectListItem>().ToList();
+            return this.View(courseInputModel);
         }
 
         // GET: Course/Courses/Edit/5

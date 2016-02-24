@@ -22,17 +22,17 @@
         }
 
         [ValidateInput(false)]
-        public ActionResult Index(string querry, string category, string orderBy, int page = 1)
+        public ActionResult Index(string querry, int? categoryId, string orderBy, int page = 1)
         {
             const int PageSize = 10;
 
-            int totalCoursesCount = this.courseService.CountCourses(querry, category);
+            int totalCoursesCount = this.courseService.CountCourses(querry, categoryId);
             int totalPages = (totalCoursesCount + PageSize - 1) / PageSize;
 
             page = Validator.ValidatePage(page, totalPages);
 
             var courseViewModels =
-                this.courseService.All(querry, category, orderBy, page, PageSize).To<CourseViewModel>().ToList();
+                this.courseService.All(querry, categoryId, orderBy, page, PageSize).To<CourseViewModel>().ToList();
 
             var allCategories = this.Cache.Get<IEnumerable<SelectListItem>>(
                 "allCategories",
@@ -43,7 +43,7 @@
             {
                 CourseViewModels = courseViewModels,
                 AllCategories = allCategories,
-                Category = category,
+                CategoryId = categoryId,
                 Querry = querry,
                 OrderBy = orderBy,
                 OrderByNameParam = string.IsNullOrEmpty(orderBy) ?

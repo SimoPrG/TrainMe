@@ -15,9 +15,9 @@
         {
         }
 
-        public IQueryable<Course> All(string querry, string category, string orderBy, int page, int pageSize)
+        public IQueryable<Course> All(string querry, int? categoryId, string orderBy, int page, int pageSize)
         {
-            var courses = this.QueryCourses(querry, category);
+            var courses = this.QueryCourses(querry, categoryId);
 
             switch (orderBy)
             {
@@ -44,9 +44,9 @@
             return courses.Skip((page - 1) * pageSize).Take(pageSize);
         }
 
-        public int CountCourses(string querry, string category)
+        public int CountCourses(string querry, int? categoryId)
         {
-            return this.QueryCourses(querry, category).Count();
+            return this.QueryCourses(querry, categoryId).Count();
         }
 
         public Course GetById(int id)
@@ -54,7 +54,13 @@
             return this.UnitOfWork.Courses.GetById(id);
         }
 
-        private IQueryable<Course> QueryCourses(string querry, string category)
+        public void Add(Course course)
+        {
+            this.UnitOfWork.Courses.Add(course);
+            this.UnitOfWork.Commit();
+        }
+
+        private IQueryable<Course> QueryCourses(string querry, int? categoryId)
         {
             var courses = this.UnitOfWork.Courses.All()
                 .Include(c => c.Category)
@@ -65,9 +71,9 @@
                 courses = courses.Where(c => c.Name.IndexOf(querry) != -1 || c.Author.UserName.IndexOf(querry) != -1);
             }
 
-            if (!string.IsNullOrWhiteSpace(category))
+            if (categoryId.HasValue)
             {
-                courses = courses.Where(c => c.Category.Name == category);
+                courses = courses.Where(c => c.CategoryId == categoryId.Value);
             }
 
             return courses;

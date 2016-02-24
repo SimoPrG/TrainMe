@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using TrainMe.Data.Models.Base;
     using TrainMe.Web.Infrastructure.Common;
 
@@ -18,6 +19,7 @@
         public int Id { get; set; }
 
         [Required]
+        [Index(IsUnique = true)]
         [MaxLength(ValidationConstants.CategoryNameMaxLength)]
         public string Name { get; set; }
 

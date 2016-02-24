@@ -186,11 +186,11 @@
                     if (model.Trainer)
                     {
                         this.UserManager.AddToRole(this.UserManager.FindByEmail(user.Email).Id, RoleNamesConstants.TrainerRoleName);
-                        this.TempData[TempDataKeys.Success] = "You have registered as a trainer successfully!";
+                        this.TempData[TempDataKeys.Success] = "You have registered as a trainer, successfully!";
                     }
                     else
                     {
-                        this.TempData[TempDataKeys.Success] = "You have registered successfully!";
+                        this.TempData[TempDataKeys.Success] = "You have registered, successfully!";
                     }
 
                     await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -437,6 +437,7 @@
         public ActionResult LogOff()
         {
             this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            this.TempData[TempDataKeys.Success] = "You have logged off, successfully!";
             return this.RedirectToAction("Index", "Home");
         }
 
