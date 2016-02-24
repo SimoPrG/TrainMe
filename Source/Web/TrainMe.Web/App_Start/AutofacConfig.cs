@@ -54,14 +54,11 @@
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
 
-            var servicesAssembly = Assembly.GetAssembly(typeof(ICourseService));
-            builder.RegisterAssemblyTypes(servicesAssembly).AsImplementedInterfaces();
+            var dataServicesAssembly = Assembly.GetAssembly(typeof(ICourseService));
+            builder.RegisterAssemblyTypes(dataServicesAssembly).AsImplementedInterfaces();
 
-            builder.Register(x => new HttpCacheService())
-                .As<ICacheService>().InstancePerRequest();
-
-            builder.Register(x => new IdentifierProvider())
-                .As<IIdentifierProvider>().InstancePerRequest();
+            var webServicesAssembly = Assembly.GetAssembly(typeof(ISanitizer));
+            builder.RegisterAssemblyTypes(webServicesAssembly).AsImplementedInterfaces();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .AssignableTo<BaseController>().PropertiesAutowired();

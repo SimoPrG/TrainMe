@@ -7,6 +7,8 @@
 
     public abstract class BaseController : Controller
     {
+        public ISanitizer Sanitizer { get; set; }
+
         public ICacheService Cache { get; set; }
 
         protected IMapper Mapper => AutoMapperConfig.Configuration.CreateMapper();

@@ -1,7 +1,7 @@
 ﻿@model TrainMe.Web.Areas.Course.ViewModels.Course.CourseDetailsViewModel
 
 @{
-    ViewBag.Title = Model.Name;
+    ViewBag.Title = Html.Raw(Model.Name);
 }
 
 <h2>@ViewBag.Title</h2>
@@ -30,7 +30,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.Raw(Model.Description)
         </dd>
 
         <dt>

@@ -33,6 +33,10 @@
 
             var courseViewModels =
                 this.courseService.All(querry, categoryId, orderBy, page, PageSize).To<CourseViewModel>().ToList();
+            foreach (var courseViewModel in courseViewModels)
+            {
+                courseViewModel.Name = this.Sanitizer.Sanitize(courseViewModel.Name);
+            }
 
             var allCategories = this.Cache.Get<IEnumerable<SelectListItem>>(
                 "allCategories",

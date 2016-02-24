@@ -43,6 +43,9 @@
                 return this.HttpNotFound();
             }
 
+            course.Name = this.Sanitizer.Sanitize(course.Name);
+            course.Description = this.Sanitizer.Sanitize(course.Description);
+
             this.HttpContext.Items[WebConstants.HttpRequestItemsCourseKey] = course;
 
             var courseDetailsViewModel = this.Mapper.Map<CourseDetailsViewModel>(course);
